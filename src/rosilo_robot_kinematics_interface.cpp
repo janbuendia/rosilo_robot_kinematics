@@ -59,6 +59,10 @@ void RobotKinematicsInterface::send_desired_interpolator_speed(const double &int
     publisher_desired_interpolator_speed_.publish(double_to_std_msgs_float64(interpolator_speed));
 }
 
+
+void RobotKinematicsInterface::send_desired_gripper_state(const double &desired_gripper_state) const
+{
+    publisher_desired_gripper_state_.publish(double_to_std_msgs_float64(desired_gripper_state));
 }
 
-
+}

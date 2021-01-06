@@ -18,6 +18,11 @@ void RobotKinematicsProvider::_callback_desired_interpolator_speed(const std_msg
     desired_interpolator_speed_ = std_msgs_float64_to_double(*msg);
 }
 
+void RobotKinematicsProvider::_callback_desired_gripper_state(const std_msgs::Float64::ConstPtr &msg)
+{
+    desired_gripper_state_ = std_msgs_float64_to_double(*msg);
+}
+
 RobotKinematicsProvider::RobotKinematicsProvider(ros::NodeHandle &node_handle, const std::string &topic_prefix):
     RobotKinematicsProvider(node_handle, node_handle, topic_prefix)
 {
@@ -34,6 +39,7 @@ RobotKinematicsProvider::RobotKinematicsProvider(ros::NodeHandle &nodehandle_pub
 
     subscriber_desired_pose_ = nodehandle_subscriber.subscribe(topic_prefix + "set/desired_pose", 1, &RobotKinematicsProvider::_callback_desired_pose, this);
     subscriber_desired_interpolator_speed_ = nodehandle_subscriber.subscribe(topic_prefix + "set/desired_interpolator_speed", 1, &RobotKinematicsProvider::_callback_desired_interpolator_speed, this);
+    subscriber_desired_gripper_state_ = nodehandle_subscriber.subscribe(topic_prefix + "set/desired_gripper_state", 1, &RobotKinematicsProvider::_callback_desired_gripper_state, this);
 }
 
 bool RobotKinematicsProvider::is_enabled() const
@@ -63,6 +69,9 @@ void RobotKinematicsProvider::send_pose(const DQ &pose) const
     publisher_pose_.publish(dq_to_geometry_msgs_pose_stamped(pose));
 }
 
+double RobotKinematicsProvider::get_desired_gripper_state() const
+{
+    return desired_gripper_state_;
 }
 
-
+}

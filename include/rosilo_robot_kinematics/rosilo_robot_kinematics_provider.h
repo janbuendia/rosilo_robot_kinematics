@@ -24,10 +24,15 @@ protected:
     ros::Subscriber subscriber_desired_interpolator_speed_;
     double desired_interpolator_speed_;
 
+    ros::Subscriber subscriber_desired_gripper_state_;
+    double desired_gripper_state_;
+
     ros::Publisher publisher_pose_;
 
     void _callback_desired_pose(const geometry_msgs::PoseStamped::ConstPtr& msg);
     void _callback_desired_interpolator_speed(const std_msgs::Float64::ConstPtr& msg);
+    void _callback_desired_gripper_state(const std_msgs::Float64::ConstPtr& msg);
+
 public:
     RobotKinematicsProvider(const RobotKinematicsProvider&)=delete;
     RobotKinematicsProvider()=delete;
@@ -38,6 +43,7 @@ public:
     bool is_enabled() const;
     DQ get_desired_pose() const;
     double get_desired_interpolator_speed() const;
+    double get_desired_gripper_state() const;
     void send_pose(const DQ& pose) const;
 };
 }
