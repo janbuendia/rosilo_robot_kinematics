@@ -33,6 +33,6 @@ public:
     DQ get_pose() const;
     void send_desired_pose(const DQ& desired_pose) const;
     void send_desired_interpolator_speed(const double& interpolator_speed) const;
-    void send_desired_gripper_state(const double& interpolator_speed) const;
+    void send_desired_gripper_state(const double& desired_gripper_state) const;
 };
 }
